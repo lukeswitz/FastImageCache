@@ -13,6 +13,7 @@
 #import "FICImageTableEntry.h"
 #import "FICUtilities.h"
 #import <libkern/OSAtomic.h>
+#import <stdatomic.h>
 
 #import "FICImageCache+FICErrorLogging.h"
 
@@ -65,7 +66,7 @@ static BOOL FICProtectedDataAvailable = NO;
     NSMutableOrderedSet *_MRUEntries;
     NSCountedSet *_inUseEntries;
     NSDictionary *_imageFormatDictionary;
-    int32_t _metadataVersion;
+    _Atomic(int32_t) _metadataVersion;
 
     NSString *_fileDataProtectionMode;
     BOOL _canAccessData;
