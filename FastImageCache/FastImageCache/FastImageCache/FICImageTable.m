@@ -713,7 +713,10 @@ static void _FICReleaseImageData(void *info, const void *data, size_t size) {
                                             [[_MRUEntries array] copy], FICImageTableMRUArrayKey,
                                             [_imageFormatDictionary copy], FICImageTableFormatKey, nil];
 
-        __block int32_t metadataVersion = OSAtomicIncrement32(&_metadataVersion);
+        //metadata fix credit PadraigK
+        atomic_fetch_add_explicit(&_metadataVersion, 1, memory_order_relaxed);
+
+         __block int32_t metadataVersion = _metadataVersion;
 
         [_lock unlock];
         
